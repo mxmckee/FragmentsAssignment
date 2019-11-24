@@ -13,7 +13,6 @@ import android.view.MenuItem;
 import java.util.ArrayList;
 import java.util.List;
 
-import edu.ualr.recyclerviewasignment.adapter.DeviceListAdapter;
 import edu.ualr.recyclerviewasignment.model.Device;
 import edu.ualr.recyclerviewasignment.model.DeviceListItem;
 import edu.ualr.recyclerviewasignment.model.DeviceSection;
@@ -21,12 +20,10 @@ import edu.ualr.recyclerviewasignment.viewmodel.DeviceViewModel;
 
 public class MainActivity extends AppCompatActivity implements OnItemSelectedListener{
 
-    private DeviceListAdapter mAdapter;
     public DeviceViewModel viewModel;
     DeviceListFragment deviceFragment;
 
     private static final String FRAGMENT_TAG = "BottomSheetDialog";
-    private static final String TAG = MainActivity.class.getSimpleName();
 
     List<DeviceListItem> linkedDevices = new ArrayList<>();
 

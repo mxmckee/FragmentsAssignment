@@ -4,6 +4,7 @@ import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
@@ -81,6 +82,42 @@ public class DeviceBottomSheetFragment extends BottomSheetDialogFragment impleme
         deviceType.setSelection(adapter.getPosition(device.getDeviceType()));
         timeConnection.setText(DeviceDataFormatTools.getTimeSinceLastConnection(getContext(),device));
         button.setOnClickListener(this);
+
+        deviceType.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+            @Override
+            public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
+                Device newDevice = device;
+                switch (position) {
+                    case 0:
+                        newDevice.setDeviceType(Device.DeviceType.Unknown);
+                        break;
+                    case 1:
+                        newDevice.setDeviceType(Device.DeviceType.Desktop);
+                        break;
+                    case 2:
+                        newDevice.setDeviceType(Device.DeviceType.Laptop);
+                        break;
+                    case 3:
+                        newDevice.setDeviceType(Device.DeviceType.Tablet);
+                        break;
+                    case 4:
+                        newDevice.setDeviceType(Device.DeviceType.Smartphone);
+                        break;
+                    case 5:
+                        newDevice.setDeviceType(Device.DeviceType.SmartTV);
+                        break;
+                    case 6:
+                        newDevice.setDeviceType(Device.DeviceType.GameConsole);
+                        break;
+                }
+                DeviceDataFormatTools.setDeviceThumbnail(getContext(), image, newDevice);
+            }
+
+            @Override
+            public void onNothingSelected(AdapterView<?> parent) {
+
+            }
+        });
     }
 
     @Override
