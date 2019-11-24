@@ -1,7 +1,6 @@
 package edu.ualr.recyclerviewasignment;
 
 import android.os.Bundle;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -10,15 +9,12 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 import androidx.lifecycle.Observer;
-import androidx.lifecycle.ViewModelProvider;
 import androidx.lifecycle.ViewModelProviders;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import java.util.List;
 
-import edu.ualr.recyclerviewasignment.OnItemSelectedListener;
-import edu.ualr.recyclerviewasignment.R;
 import edu.ualr.recyclerviewasignment.adapter.DeviceListAdapter;
 import edu.ualr.recyclerviewasignment.data.DataGenerator;
 import edu.ualr.recyclerviewasignment.model.Device;
@@ -50,15 +46,13 @@ public class DeviceListFragment extends Fragment implements OnItemSelectedListen
             public void onChanged(List<DeviceListItem> devices) {
                 mAdapter.updateList(devices);
                 mRecyclerView.setAdapter(mAdapter);
-                Log.d("msg", "updated");
             }
         });
-        //getVM();
+
         initRecyclerView(view);
     }
 
     private void initRecyclerView(View view){
-        //mAdapter = new DeviceListAdapter(getActivity(), viewModel);
         mRecyclerView = view.findViewById(R.id.devices_recycler_view);
         mRecyclerView.setAdapter(mAdapter);
         List<DeviceListItem> data = DataGenerator.getDevicesDataset(5);
@@ -71,16 +65,6 @@ public class DeviceListFragment extends Fragment implements OnItemSelectedListen
 
         mAdapter.setListener(this);
 
-    }
-
-    private void getVM() {
-        viewModel = ViewModelProviders.of(getActivity()).get(DeviceViewModel.class);
-        viewModel.getDevices().observe(this, new Observer<List<DeviceListItem>>() {
-            @Override
-            public void onChanged(List<DeviceListItem> devices) {
-                mAdapter.updateList(devices);
-            }
-        });
     }
 
     public void setListener(OnItemSelectedListener nlistener)

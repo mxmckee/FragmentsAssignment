@@ -20,7 +20,6 @@ import java.util.List;
 import edu.ualr.recyclerviewasignment.OnItemSelectedListener;
 import edu.ualr.recyclerviewasignment.R;
 import edu.ualr.recyclerviewasignment.data.DeviceDataFormatTools;
-import edu.ualr.recyclerviewasignment.DeviceBottomSheetFragment;
 import edu.ualr.recyclerviewasignment.model.Device;
 import edu.ualr.recyclerviewasignment.model.DeviceListItem;
 import edu.ualr.recyclerviewasignment.model.DeviceSection;
@@ -197,14 +196,11 @@ public class DeviceListAdapter extends RecyclerView.Adapter {
                 case R.id.device_item_container:
                     editDevice();
                     break;
-
             }
-
         }
 
         private void editDevice() {
             Device device = (Device) mItems.get(getAdapterPosition());
-            DeviceBottomSheetFragment sheet = new DeviceBottomSheetFragment();
             listener.OnItemSelected(device,getAdapterPosition());
         }
 
@@ -218,8 +214,6 @@ public class DeviceListAdapter extends RecyclerView.Adapter {
                 device.setDeviceStatus(Device.DeviceStatus.Connected);
             }
             mItems.updateItemAt(getAdapterPosition(), device);
-
         }
-
     }
 }

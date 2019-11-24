@@ -1,7 +1,6 @@
 package edu.ualr.recyclerviewasignment;
 
 import android.os.Bundle;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -19,7 +18,6 @@ import androidx.lifecycle.ViewModelProviders;
 
 import com.google.android.material.bottomsheet.BottomSheetDialogFragment;
 
-
 import java.util.List;
 
 import edu.ualr.recyclerviewasignment.data.DeviceDataFormatTools;
@@ -31,6 +29,7 @@ public class DeviceBottomSheetFragment extends BottomSheetDialogFragment impleme
     private DeviceViewModel viewModel;
 
     private EditText deviceName;
+    private TextView deviceStatus;
     private Spinner deviceType;
     private TextView timeConnection;
     private Button button;
@@ -58,6 +57,7 @@ public class DeviceBottomSheetFragment extends BottomSheetDialogFragment impleme
         ImageView statusMark = view.findViewById(R.id.detail_status_mark);
 
         deviceName = view.findViewById(R.id.detail_device_name_edittext);
+        deviceStatus = view.findViewById(R.id.detail_device_status);
         deviceType = view.findViewById(R.id.device_type_spinner);
         timeConnection = view.findViewById(R.id.last_time_connection_textview);
         button = view.findViewById(R.id.save_btn);
@@ -74,7 +74,8 @@ public class DeviceBottomSheetFragment extends BottomSheetDialogFragment impleme
         DeviceDataFormatTools.setDeviceThumbnail(getContext(), image, device);
         DeviceDataFormatTools.setDeviceStatusMark(getContext(), statusMark, device);
 
-        deviceName.setHint(device.getName());
+        deviceName.setHint(device.getName().toUpperCase());
+        deviceStatus.setText(device.getDeviceStatus().toString());
         ArrayAdapter<Device.DeviceType> adapter = new ArrayAdapter<>(getContext(), android.R.layout.simple_list_item_1, Device.DeviceType.values());
         deviceType.setAdapter(adapter);
         deviceType.setSelection(adapter.getPosition(device.getDeviceType()));
@@ -93,7 +94,9 @@ public class DeviceBottomSheetFragment extends BottomSheetDialogFragment impleme
 
     private void save()
     {
-        device.setName(deviceName.getText().toString());
+        if (!deviceName.getText().toString().isEmpty()) {
+            device.setName(deviceName.getText().toString());
+        }
         device.setDeviceType((Device.DeviceType) deviceType.getSelectedItem());
         viewModel.setDeviceItem(device,index);
     }

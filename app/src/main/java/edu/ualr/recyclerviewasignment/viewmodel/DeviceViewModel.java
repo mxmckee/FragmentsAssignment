@@ -39,6 +39,4 @@ public class DeviceViewModel extends ViewModel {
         deviceItemList.set(index,deviceItem);
         devices.setValue(deviceItemList);
     }
-
-
 }
