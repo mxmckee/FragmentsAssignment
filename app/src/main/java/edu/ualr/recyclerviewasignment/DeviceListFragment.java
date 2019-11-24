@@ -29,7 +29,6 @@ public class DeviceListFragment extends Fragment implements OnItemSelectedListen
     private DeviceListAdapter mAdapter;
     private OnItemSelectedListener listener;
 
-
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
@@ -58,7 +57,6 @@ public class DeviceListFragment extends Fragment implements OnItemSelectedListen
         List<DeviceListItem> data = DataGenerator.getDevicesDataset(5);
         viewModel.setDevices(data);
         mAdapter.addAll(data);
-
 
         RecyclerView.LayoutManager layoutManager = new LinearLayoutManager(getActivity());
         mRecyclerView.setLayoutManager(layoutManager);

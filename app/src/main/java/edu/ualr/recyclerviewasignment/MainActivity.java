@@ -10,10 +10,13 @@ import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
 
-import java.util.Date;
+import java.util.ArrayList;
+import java.util.List;
 
 import edu.ualr.recyclerviewasignment.adapter.DeviceListAdapter;
 import edu.ualr.recyclerviewasignment.model.Device;
+import edu.ualr.recyclerviewasignment.model.DeviceListItem;
+import edu.ualr.recyclerviewasignment.model.DeviceSection;
 import edu.ualr.recyclerviewasignment.viewmodel.DeviceViewModel;
 
 public class MainActivity extends AppCompatActivity implements OnItemSelectedListener{
@@ -23,6 +26,9 @@ public class MainActivity extends AppCompatActivity implements OnItemSelectedLis
     DeviceListFragment deviceFragment;
 
     private static final String FRAGMENT_TAG = "BottomSheetDialog";
+    private static final String TAG = MainActivity.class.getSimpleName();
+
+    List<DeviceListItem> linkedDevices = new ArrayList<>();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -32,7 +38,6 @@ public class MainActivity extends AppCompatActivity implements OnItemSelectedLis
         Toolbar toolbar = findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
 
-        //sharedViewModel = new DeviceViewModel();
         viewModel = ViewModelProviders.of(this).get(DeviceViewModel.class);
 
         deviceFragment = new DeviceListFragment();
@@ -58,6 +63,14 @@ public class MainActivity extends AppCompatActivity implements OnItemSelectedLis
                 setAllDeviceStatuses(Device.DeviceStatus.Connected, Device.DeviceStatus.Ready);
                 return true;
             case R.id.linked_action:
+                if (item.isChecked()) {
+                    item.setChecked(false);
+                    hideLinked();
+                }
+                else {
+                    item.setChecked(true);
+                    showLinked();
+                }
                 return true;
             default: return super.onOptionsItemSelected(item);
         }
@@ -80,6 +93,34 @@ public class MainActivity extends AppCompatActivity implements OnItemSelectedLis
                     }
                 }
             }
+        });
+        viewModel.getDevices().removeObservers(this);
+    }
+
+    private void hideLinked() {
+        viewModel.getDevices().observe(this, devices -> {
+            for (int i = 0; i < devices.size(); i++) {
+                if (devices.get(i).isSection() && ((DeviceSection) devices.get(i)).getLabel().equals(Device.DeviceStatus.Linked.toString())) {
+                    linkedDevices.add(devices.get(i));
+                    viewModel.removeDevice(devices.get(i));
+                }
+                else if (!devices.get(i).isSection()) {
+                    if (devices.get(i).getDeviceStatus().equals(Device.DeviceStatus.Linked)) {
+                        linkedDevices.add(devices.get(i));
+                        viewModel.removeDevice(devices.get(i));
+                    }
+                }
+            }
+        });
+        viewModel.getDevices().removeObservers(this);
+    }
+
+    private void showLinked() {
+        viewModel.getDevices().observe(this, devices -> {
+            for (int i = 0; i < linkedDevices.size(); i++) {
+                viewModel.addDevice(linkedDevices.get(i));
+            }
+            linkedDevices.clear();
         });
         viewModel.getDevices().removeObservers(this);
     }

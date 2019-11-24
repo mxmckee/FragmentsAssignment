@@ -39,4 +39,16 @@ public class DeviceViewModel extends ViewModel {
         deviceItemList.set(index,deviceItem);
         devices.setValue(deviceItemList);
     }
+
+    public void removeDevice(DeviceListItem deviceItem) {
+        List<DeviceListItem> deviceItemList = devices.getValue();
+        deviceItemList.remove(deviceItem);
+        devices.setValue(deviceItemList);
+    }
+
+    public void addDevice(DeviceListItem deviceItem) {
+        List<DeviceListItem> deviceItemList = devices.getValue();
+        deviceItemList.add(deviceItem);
+        devices.setValue(deviceItemList);
+    }
 }
