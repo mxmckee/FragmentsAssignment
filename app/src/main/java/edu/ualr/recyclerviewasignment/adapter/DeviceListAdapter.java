@@ -16,11 +16,13 @@ import androidx.recyclerview.widget.SortedList;
 import java.util.Date;
 import java.util.List;
 
+import edu.ualr.recyclerviewasignment.OnItemSelectedListener;
 import edu.ualr.recyclerviewasignment.R;
 import edu.ualr.recyclerviewasignment.data.DeviceDataFormatTools;
 import edu.ualr.recyclerviewasignment.model.Device;
 import edu.ualr.recyclerviewasignment.model.DeviceListItem;
 import edu.ualr.recyclerviewasignment.model.DeviceSection;
+import edu.ualr.recyclerviewasignment.viewmodel.DeviceViewModel;
 
 /**
  * Created by irconde on 2019-10-04.
@@ -32,8 +34,9 @@ public class DeviceListAdapter extends RecyclerView.Adapter {
 
     private SortedList<DeviceListItem> mItems;
     private Context mContext;
+    private OnItemSelectedListener listener;
 
-    public DeviceListAdapter(Context context) {
+    public DeviceListAdapter(Context context, DeviceViewModel dvm) {
         this.mContext = context;
         this.mItems = new SortedList<>(DeviceListItem.class, new SortedList.Callback<DeviceListItem>() {
             @Override
@@ -99,6 +102,11 @@ public class DeviceListAdapter extends RecyclerView.Adapter {
         mItems.endBatchedUpdates();
     }
 
+    public void updateList(List<DeviceListItem> devices)
+    {
+        mItems.replaceAll(devices);
+    }
+
     @NonNull
     @Override
     public RecyclerView.ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
@@ -141,6 +149,11 @@ public class DeviceListAdapter extends RecyclerView.Adapter {
         return this.mItems.get(position).isSection() ? SECTION_VIEW : DEVICE_VIEW;
     }
 
+    public void setListener(OnItemSelectedListener nListener)
+    {
+        listener = nListener;
+    }
+
     private class SectionViewHolder extends RecyclerView.ViewHolder {
         public TextView title_section_label;
 
@@ -156,6 +169,7 @@ public class DeviceListAdapter extends RecyclerView.Adapter {
         private TextView name;
         private TextView elapsedTimeLabel;
         private ImageButton connectBtn;
+        private RelativeLayout item;
 
         public DeviceViewHolder(View v) {
             super(v);
@@ -165,12 +179,28 @@ public class DeviceListAdapter extends RecyclerView.Adapter {
             elapsedTimeLabel = v.findViewById(R.id.elapsed_time);
             connectBtn = v.findViewById(R.id.device_connect_btn);
             connectBtn.setOnClickListener(this);
+            item = v.findViewById(R.id.device_item_container);
+            item.setOnClickListener(this);
         }
 
 
         @Override
         public void onClick(View view) {
-            toggleConnection();
+            switch(view.getId())
+            {
+                case R.id.device_connect_btn:
+                    toggleConnection();
+                    break;
+
+                case R.id.device_item_container:
+                    editDevice();
+                    break;
+            }
+        }
+
+        private void editDevice() {
+            Device device = (Device) mItems.get(getAdapterPosition());
+            listener.OnItemSelected(device,getAdapterPosition());
         }
 
         private void toggleConnection() {

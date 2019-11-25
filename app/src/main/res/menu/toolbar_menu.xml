@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+    <!-- "Mark Favorite", should appear as action button always -->
+    <item
+        android:id="@+id/connect_action"
+        android:title="@string/connect_all_label"
+        app:showAsAction="never"/>
+    <!-- "Delete", should appear as action button if possible -->
+    <item
+        android:id="@+id/disconnect_action"
+        android:title="@string/disconnect_all_label"
+        app:showAsAction="never"/>
+    <!-- "Settings", should not appear as action button -->
+    <item
+        android:id="@+id/linked_action"
+        android:title="@string/show_linked_label"
+        app:showAsAction="never"
+        android:checkable="true"
+        android:checked="true"/>
+</menu>
