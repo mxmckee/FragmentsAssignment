@@ -5,6 +5,7 @@ package edu.ualr.recyclerviewasignment.model;
  */
 public abstract class DeviceListItem {
     protected boolean isSection = false;
+    protected Device.DeviceStatus deviceStatus = Device.DeviceStatus.Linked;
 
     public Device.DeviceStatus getDeviceStatus() {
         return deviceStatus;
@@ -14,7 +15,6 @@ public abstract class DeviceListItem {
         this.deviceStatus = deviceStatus;
     }
 
-    protected Device.DeviceStatus deviceStatus = Device.DeviceStatus.Linked;
     public boolean isSection() {
         return this.isSection;
     }

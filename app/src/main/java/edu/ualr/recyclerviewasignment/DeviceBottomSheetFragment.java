@@ -34,7 +34,6 @@ public class DeviceBottomSheetFragment extends BottomSheetDialogFragment impleme
     private Spinner deviceType;
     private TextView timeConnection;
     private Button button;
-
     private Device device;
     private int index;
 

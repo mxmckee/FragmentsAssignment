@@ -20,11 +20,9 @@ import edu.ualr.recyclerviewasignment.viewmodel.DeviceViewModel;
 
 public class MainActivity extends AppCompatActivity implements OnItemSelectedListener{
 
+    private static final String FRAGMENT_TAG = "BottomSheetDialog";
     public DeviceViewModel viewModel;
     DeviceListFragment deviceFragment;
-
-    private static final String FRAGMENT_TAG = "BottomSheetDialog";
-
     List<DeviceListItem> linkedDevices = new ArrayList<>();
 
     @Override

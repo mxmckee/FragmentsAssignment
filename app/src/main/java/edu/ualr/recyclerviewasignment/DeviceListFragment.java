@@ -8,7 +8,6 @@ import android.view.ViewGroup;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
-import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProviders;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
@@ -40,12 +39,9 @@ public class DeviceListFragment extends Fragment implements OnItemSelectedListen
 
         viewModel = ViewModelProviders.of(getActivity()).get(DeviceViewModel.class);
         mAdapter = new DeviceListAdapter(getActivity(), viewModel);
-        viewModel.getDevices().observe(this, new Observer<List<DeviceListItem>>() {
-            @Override
-            public void onChanged(List<DeviceListItem> devices) {
-                mAdapter.updateList(devices);
-                mRecyclerView.setAdapter(mAdapter);
-            }
+        viewModel.getDevices().observe(this, devices -> {
+            mAdapter.updateList(devices);
+            mRecyclerView.setAdapter(mAdapter);
         });
 
         initRecyclerView(view);

@@ -24,13 +24,13 @@ public class DeviceViewModel extends ViewModel {
         };
     }
 
-    public void setDevices(List<DeviceListItem> ndevices) {
-        devices.setValue(ndevices);
-    }
-
     public LiveData<List<DeviceListItem>> getDevices()
     {
         return devices;
+    }
+
+    public void setDevices(List<DeviceListItem> ndevices) {
+        devices.setValue(ndevices);
     }
 
     public void setDeviceItem(DeviceListItem deviceItem, int index)

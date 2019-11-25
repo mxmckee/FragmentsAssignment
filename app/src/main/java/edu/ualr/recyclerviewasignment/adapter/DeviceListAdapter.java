@@ -31,7 +31,6 @@ public class DeviceListAdapter extends RecyclerView.Adapter {
 
     private static final int DEVICE_VIEW = 0;
     private static final int SECTION_VIEW = 1;
-
     private SortedList<DeviceListItem> mItems;
     private Context mContext;
     private OnItemSelectedListener listener;
@@ -182,7 +181,6 @@ public class DeviceListAdapter extends RecyclerView.Adapter {
             item = v.findViewById(R.id.device_item_container);
             item.setOnClickListener(this);
         }
-
 
         @Override
         public void onClick(View view) {
