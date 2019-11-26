@@ -137,9 +137,9 @@ public class DeviceBottomSheetFragment extends BottomSheetDialogFragment impleme
         viewModel.setDeviceItem(device,index);
     }
 
-    public void onItemSelected(Device ndevice, int nindex)
+    public void onItemSelected(Device newDevice, int newIndex)
     {
-        this.device = ndevice;
-        this.index = nindex;
+        this.device = newDevice;
+        this.index = newIndex;
     }
 }

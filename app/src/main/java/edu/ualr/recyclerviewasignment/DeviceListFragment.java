@@ -61,14 +61,14 @@ public class DeviceListFragment extends Fragment implements OnItemSelectedListen
 
     }
 
-    public void setListener(OnItemSelectedListener nlistener)
+    public void setListener(OnItemSelectedListener newListener)
     {
-        listener = nlistener;
+        listener = newListener;
     }
 
     @Override
     public void OnItemSelected(Device device, int index) {
-        listener.OnItemSelected(device,index);
+        listener.OnItemSelected(device, index);
     }
 }
 

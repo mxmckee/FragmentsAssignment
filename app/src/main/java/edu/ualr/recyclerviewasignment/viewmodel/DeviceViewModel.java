@@ -29,8 +29,8 @@ public class DeviceViewModel extends ViewModel {
         return devices;
     }
 
-    public void setDevices(List<DeviceListItem> ndevices) {
-        devices.setValue(ndevices);
+    public void setDevices(List<DeviceListItem> deviceList) {
+        devices.setValue(deviceList);
     }
 
     public void setDeviceItem(DeviceListItem deviceItem, int index)
